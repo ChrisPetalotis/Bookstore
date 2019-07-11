@@ -1,0 +1,9 @@
+Flask
+Flask-Session
+psycopg2
+SQLAlchemy
+functools
+passlib.apps
+regex
+re
+requests
