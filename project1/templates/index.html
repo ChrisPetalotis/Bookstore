@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title%}
+	Books
+{% endblock %}
+
+{% block main %}
+	<h1>Search for books</h1>
+
+	<form action="{{ url_for('index') }}" method="post">
+        <fieldset>
+			<div class="form-group">
+				<!-- Search input field -->
+				<label for="searchTerm" class="sr-only">Search</label> 
+				<input type="text" value="" class="form-control" name="search" id="searchTerm" placeholder="Book title, author or ISBN number">
+		        <button type='submit'>Search</button>
+			</div>
+		</fieldset>
+    </form>
+
+	<h3>Search results</h3>
+	<ul id='output'>
+		{% for book in books %}
+		<li name='book_id'>
+			<a href="{{ url_for('book', book_id=book.id) }}">
+				{{ book.title }} by {{ book.author }}
+			</a>
+		</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

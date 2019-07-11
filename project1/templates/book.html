@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+	Book
+{% endblock %}
+
+{% block main %}
+
+	<h1>Book Details</h1>
+
+	<ul>
+		<li><h4>Title:</h4> {{ book.title }}</li>
+		<li><h4>Auhtor:</h4> {{ book.author }}</li>
+		<li><h4>Publication Year:</h4> {{ book.publication_year }}</li>
+		<li><h4>ISBN number:</h4> {{ book.isbn }}</li>
+	</ul>
+
+	<h4> Leave a review for this book</h4>
+	
+	<form action="{{ url_for('review', book_id=book.id) }}" method="post">
+        <fieldset>
+			<div class="form-group">
+				<input type="number" class="form-control" name="rating" max='5' min='1' placeholder="Rating (number values only up to 5)">
+			</div>
+
+			<div class="form-group">
+				<textarea cols='60' rows='8' name="review" placeholder="Leave your review here"></textarea>
+			</div>
+		</fieldset>
+		<input type="submit" name="submit" value="Submit Review">
+    </form>
+
+    <h4>Reviews</h4>
+
+    <ul>
+		{% for review in reviews %}
+		<li>
+			<strong>Rating</strong>: {{ review.rating }} -> <strong>Review</strong>: {{ review['review_text'] }}
+		</li>
+		{% endfor %}
+	</ul>
+
+	<h4>Goodreads Reviews Data<h4>
+	<div>Average rating: {{ avg_rat }}<div>
+	<div>Number of ratings from Goodreads: {{ num_rat }}<div>
+
+{% endblock %}
