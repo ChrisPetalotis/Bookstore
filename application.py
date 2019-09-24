@@ -131,6 +131,7 @@ def login():
 		# query database for this user's data
 		user = db.execute("SELECT * FROM users WHERE username=:username", {'username':request.form.get('username')}).fetchall()
 
+		# if we couldn't find a user or the password is incorrect
 		if len(user) != 1 or not pwd_context.verify(request.form.get('password'), user[0]['hash']):
 			return 'Invalid username and/or password'
 
@@ -158,6 +159,11 @@ def register():
 			return 'You must type in your password'
 		elif not request.form.get('password_conf'):
 			return 'You must confirm the password you have typed'
+		
+		# if the username already exists in the database return a message
+		user = db.execute("SELECT * FROM users WHERE username=:username" , {"username":request.form.get('username')}).fetchone()
+		if len(user) > 0:
+			return 'This username already exists'
 
 		pass_sub = request.form.get('password')
 		pass_conf = request.form.get('password_conf')
@@ -171,9 +177,6 @@ def register():
 		# insert user in the database (users table)
 		insert = db.execute("INSERT INTO users (username,hash) VALUES (:username, :hash)", {'username':request.form.get('username'), 'hash':hash})
 		db.commit()
-		# if the username already exists in the database return a message
-		if not insert:
-			return 'This username already exists'
 	
 		return redirect(url_for('login'))
 	else:
@@ -209,23 +212,17 @@ def change_password():
 		elif not new_pass_conf:
 			return 'You must confirm the new password you have typed'
 
-		print("about to confirm that the old password is correct")
 		# confirm that the old password provided is correct
 		user = db.execute('SELECT hash FROM users WHERE id=:id', {'id': session['user_id']}).first()
-		print(user)
+
 		if not pwd_context.verify(old_pass, user[0]):
-			print('The old password is not correct')
 			return 'The old password is not correct'
 		elif not new_pass == new_pass_conf:
-			print("The new passwords do not match")
 			return 'The new passwords do not match'
 
-		print("new pass hashed: " + pwd_context.encrypt(new_pass))
-		print('about to update the database')
-		print(session['user_id'])
 		db.execute('UPDATE users SET hash=:hash WHERE id=:id', {'hash': pwd_context.encrypt(new_pass), 'id': session['user_id']})
 		db.commit()
-		print('database updated!')
+
 		return redirect(url_for('index'))
 	else:
 		return render_template('change_password.html')
