@@ -169,7 +169,7 @@ def register():
 			hash = pwd_context.encrypt(pass_sub)
 
 		# insert user in the database (users table)
-		insert = db.execute("INSERT INTO users (username,hash) VALUES(:username, :hash)", {'username':request.form.get('username'), 'hash':hash})
+		insert = db.execute("INSERT INTO users (username,hash) VALUES (:username, :hash)", {'username':request.form.get('username'), 'hash':hash})
 		db.commit()
 		# if the username already exists in the database return a message
 		if not insert:

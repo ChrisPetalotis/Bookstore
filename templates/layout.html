@@ -19,9 +19,6 @@
                     </div>
                     <div class="collapse navbar-collapse" id="navbar">
                         {% if session.user_id %}
-                            <ul class="nav navbar-nav">
-                                
-                            </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{ url_for('change_password') }}">Change Password</a></li>
                                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
