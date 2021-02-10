@@ -1,8 +1,4 @@
-# Project 1
-
-Web Programming with Python and JavaScript
-
-For this project I have built a website which shows information about some books. 
+In this project I have built a website which shows information about some books. Goodreads' API has been used to get some of the data for the books.
 
 The user can register, log in and log out from his/her page on this website. Once logged in the user can change his/her password.
 
