@@ -14,6 +14,5 @@ In the templates folder are the html files for the website.
 
 The application.py file contains all the logic for the user to be able to interact with the website. There are different routes for the different parts of the application.
 
-The import.py file contains code that imports all of the data in the books.csv file to a Heroku database that I have created. The data in there has a title, an author, an isbn number
-and a publication year.
+The import.py file contains code that imports all of the data in the books.csv file to a Heroku database that I have created. In this database, there is a Book table that has columns for the following attributes: title, author, isbn number and publication year.
 
