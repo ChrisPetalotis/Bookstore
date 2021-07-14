@@ -1,4 +1,4 @@
-In this project I have built a website which shows information about some books. Goodreads' API has been used to get some of the data for the books.
+This is a flask framework project which is a website that shows information about some books. Goodreads' API has been used to get some of the data for the books.
 
 The user can register, log in and log out from his/her page on this website. Once logged in the user can change his/her password.
 
